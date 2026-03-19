@@ -1,0 +1,80 @@
+---
+title: "Population Transportability in Network Meta-Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Population Transportability in Network Meta-Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(nmatransport)
+```
+
+## Introduction
+
+Network Meta-Analysis (NMA) assumes transitivity: the relative effect of A vs B can be estimated from A vs C and B vs C. This assumption is violated if effect modifiers (e.g., patient age, severity) differ systematically across the comparisons in the network.
+
+The `nmatransport` package provides tools to:
+1. Assess the transitivity assumption by quantifying covariate overlap.
+2. Reweight the network using Entropy Balancing to "transport" the results to a specific target population.
+
+## Data Structure
+
+We start with a simulated NMA dataset containing treatment effects and study-level covariates.
+
+```{r data}
+data(nma_data)
+head(nma_data)
+```
+
+## Step 1: Transitivity Assessment
+
+We check if effect modifiers (`age_mean`, `bmi_mean`) are balanced across the different edges of the network.
+
+```{r transitivity}
+trans_results <- assess_transitivity(nma_data, modifiers = c("age_mean", "bmi_mean"))
+print(trans_results$global_transitivity_violation)
+```
+
+A high transitivity violation score suggests that the standard NMA assumptions may not hold, necessitating population transportability methods.
+
+## Step 2: Transporting Evidence
+
+Suppose a clinician wants to know the treatment rankings for an older population with a higher BMI. We define the target population profile:
+
+```{r target}
+target_pop <- list(age_mean = 65, bmi_mean = 30)
+```
+
+We compute transport weights for each study so that the weighted average of the network matches the target population:
+
+```{r weights}
+weights <- compute_nma_weights(nma_data, target_pop)
+head(weights)
+```
+
+## Step 3: Run Transported NMA
+
+Finally, we run the NMA using the computed weights. This down-weights studies that are dissimilar to our target population and up-weights studies that closely match it.
+
+```{r transported_nma}
+if (requireNamespace("netmeta", quietly = TRUE)) {
+  # Unweighted standard NMA
+  res_standard <- transported_nma(nma_data)
+  print(res_standard)
+  
+  # Transported NMA
+  res_transported <- transported_nma(nma_data, weights = weights)
+  print(res_transported)
+}
+```
+
+By comparing the treatment rankings (P-scores), we can observe how the optimal treatment changes depending on the specific patient population.

@@ -1,0 +1,18 @@
+#' Example NMA Dataset
+#'
+#' A simulated dataset containing network meta-analysis data
+#' and study-level covariates (Age, BMI) for demonstration purposes.
+#'
+#' @format A data frame with network comparisons:
+#' \describe{
+#'   \item{studlab}{Character: Unique study identifier}
+#'   \item{treat1}{Character: Treatment 1}
+#'   \item{treat2}{Character: Treatment 2}
+#'   \item{TE}{Numeric: Treatment effect (e.g., log odds ratio)}
+#'   \item{seTE}{Numeric: Standard error of the effect}
+#'   \item{age_mean}{Numeric: Mean age of participants}
+#'   \item{bmi_mean}{Numeric: Mean BMI of participants}
+#' }
+#'
+#' @source Simulated data for package demonstration
+"nma_data"

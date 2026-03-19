@@ -1,0 +1,32 @@
+Package: nmatransport
+Type: Package
+Title: Population Transportability and Transitivity Assessment in Network Meta-Analysis
+Version: 0.1.0
+Authors@R: person("Mahmood", "Ahmad", email = "mahmood726@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0000-0000-0000"))
+Description: Extends standard network meta-analysis (NMA) to target populations
+    by adjusting for differences in effect modifiers across the network.
+    Implements matching-adjusted techniques for aggregate data NMA, automated
+    transitivity assessments, and personalized treatment rankings to solve
+    generalizability gaps in evidence synthesis.
+License: GPL (>= 3)
+URL: https://github.com/mahmood726-cyber/nmatransport
+BugReports: https://github.com/mahmood726-cyber/nmatransport/issues
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 4.0.0)
+Imports:
+    netmeta,
+    metafor,
+    stats,
+    utils,
+    igraph,
+    ggplot2
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    dplyr
+RoxygenNote: 7.3.3
+VignetteBuilder: knitr
+Config/testthat/edition: 3
