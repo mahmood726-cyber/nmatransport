@@ -95,13 +95,5 @@
       }
     ]
   },
-  "schema": "e156-v0.2",
-  "affiliation": "Tahir Heart Institute",
-  "email": "author@example.com",
-  "references": [
-    "Salanti G. Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis. Res Synth Methods. 2012;3(2):80-97.",
-    "Rucker G, Schwarzer G. Ranking treatments in frequentist network meta-analysis. BMC Med Res Methodol. 2015;15:58.",
-    "Dias S, Welton NJ, Caldwell DM, Ades AE. Checking consistency in mixed treatment comparison meta-analysis. Stat Med. 2010;29(7-8):932-944."
-  ],
-  "github": "https://github.com/mahmood726-cyber/nmatransport"
+  "schema": "e156-v0.2"
 }
